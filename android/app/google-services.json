@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "894663751413",
+    "project_id": "reduxapp-3d79e",
+    "storage_bucket": "reduxapp-3d79e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:894663751413:android:dd9b41e966fa10e664b7bc",
+        "android_client_info": {
+          "package_name": "com.reduxapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJK6g2d2dyXwH-VhgtNqTaMR5dO-ylmdM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

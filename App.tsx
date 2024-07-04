@@ -1,12 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import React from 'react';
-import type {PropsWithChildren} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -14,84 +6,108 @@ import {
   StyleSheet,
   Text,
   useColorScheme,
-  View,
+  View,Alert, Platform
 } from 'react-native';
+import Product from './src/screens/product';
+import messaging from '@react-native-firebase/messaging';
+import { fcmService } from './src/services/FCMService';
+import { notificationService } from './src/services/NotificationService';
+import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+const App=()=> {
+  const [fcmToken, setFcmToken]=useState<String>("NULL");
 
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+  // useEffect(() => {
+  //   requestNotificationPermission().then(()=>{
+  //     fcmService.register(onRegister, onNotification, onOpenNotification);
+  //       notificationService.configure(onOpenNotification);
+  //   }).catch((error) => {
+  //     console.log('Notification permission request failed: ', error);
+  //   });
+  //   return () => {
+  //     fcmService.deleteToken();
+  //   };
+  // }, []);
+
+  // const onRegister = (token:any) => {
+  //   console.log('[App] onRegister: ', token);
+  // };
+
+  // const onNotification = (notify:any) => {
+  //   console.log('[App] onNotification: ', notify);
+
+  //   const title = notify.notification?.title || 'No Title';
+  //   const body = notify.notification?.body || 'No Body';
+    
+  //   const options = {
+  //     soundName: 'default',
+  //     playSound: true,
+  //     channelId: "default-channel-id", // Ensure that this matches the channelId created earlier
+  //   };
+
+  //   notificationService.showNotification(
+  //     1,
+  //     title,
+  //     body,
+  //     notify,
+  //     options
+  //   );
+  // };
+  // const onOpenNotification = (notify:any) => {
+  //   console.log('[App] onOpenNotification: ', notify);
+  //   const notification =notify.item.notification || notify.notification ;
+  //   const title = notification.title || 'No title';
+  //   const body = notification.body || 'No body';
+  //   Alert.alert(`Title: ${title}\nBody: ${body}`);
+  // };
+
+  // async function requestNotificationPermission() {
+  //   let permission;
+  //   if (Platform.OS === 'ios') {
+  //     permission = PERMISSIONS.IOS.NOTIFICATIONS;
+  //   } else if (Platform.OS === 'android') {
+  //     permission = PERMISSIONS.ANDROID.POST_NOTIFICATIONS;
+  //   }
+  
+  //   const result = await check(permission);
+  //   switch (result) {
+  //     case RESULTS.UNAVAILABLE:
+  //       console.log('This feature is not available (on this device / in this context)');
+  //       break;
+  //     case RESULTS.DENIED:
+  //       console.log('The permission has not been requested / is denied but requestable');
+  //       const requestResult = await request(permission);
+  //       if (requestResult === RESULTS.GRANTED) {
+  //         console.log('The permission is granted');
+  //         await messaging().registerDeviceForRemoteMessages();
+  //         await messaging().requestPermission();
+  //       } else {
+  //         console.log('The permission is denied');
+  //       }
+  //       break;
+  //     case RESULTS.LIMITED:
+  //       console.log('The permission is limited: some actions are possible');
+  //       break;
+  //     case RESULTS.GRANTED:
+  //       console.log('The permission is granted');
+  //       await messaging().registerDeviceForRemoteMessages();
+  //       await messaging().requestPermission();
+  //       break;
+  //     case RESULTS.BLOCKED:
+  //       console.log('The permission is denied and not requestable anymore');
+  //       Alert.alert(
+  //         'Notification Permission',
+  //         'Notification permission is denied and cannot be requested. Please enable it in the app settings.',
+  //         [{ text: 'OK' }]
+  //       );
+  //       break;
+  //   }
+  // }
+
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
+    <SafeAreaView >
+      <Product/>
     </SafeAreaView>
   );
 }
